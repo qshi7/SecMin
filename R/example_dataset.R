@@ -1,0 +1,77 @@
+#' Example dataset
+#'
+#' A dataset containing response time of 1636 test-takers
+#'
+#' @format A data frame with 1636 rows and 610 variables:
+#' \describe{
+#'   \item{EID}{ID of participants}
+#'   \item{Flagged}{Whether the participants were flagged as a cheater. 0=not flagged, 1=flagged}
+#'   \item{Pretest}{XXXX}
+#'   \item{Attempt}{XXXX}
+#'   \item{Country}{XXXX}
+#'   \item{StateCode}{XXXX}
+#'   \item{School_ID}{XXXX}
+#'   \item{cent_id}{XXXX}
+#'   \item{tot_time}{XXXX}
+#'   \item{iresp.1}{XXXX}
+#'   \item{iresp.2}{XXXX}
+#'   \item{iresp.3}{XXXX}
+#'   \item{iresp.4}{XXXX}
+#'   \item{iresp.5}{XXXX}
+#'   \item{iresp.6}{XXXX}
+#'   \item{iresp.7}{XXXX}
+#'   \item{iresp.8}{XXXX}
+#'   \item{iresp.9}{XXXX}
+#'   \item{iresp.10}{XXXX}
+#'   \item{iresp.11}{XXXX}
+#'   \item{iresp.12}{XXXX}
+#'   \item{iresp.13}{XXXX}
+#'   \item{iresp.14}{XXXX}
+#'   \item{iresp.15}{XXXX}
+#'   \item{iresp.16}{XXXX}
+#'   \item{iresp.17}{XXXX}
+#'   \item{iresp.18}{XXXX}
+#'   \item{iresp.19}{XXXX}
+#'   \item{iresp.20}{XXXX}
+#'   \item{iraw.1}{XXXX}
+#'   \item{iraw.2}{XXXX}
+#'   \item{iraw.3}{XXXX}
+#'   \item{iraw.4}{XXXX}
+#'   \item{iraw.5}{XXXX}
+#'   \item{iraw.6}{XXXX}
+#'   \item{iraw.7}{XXXX}
+#'   \item{iraw.8}{XXXX}
+#'   \item{iraw.9}{XXXX}
+#'   \item{iraw.10}{XXXX}
+#'   \item{iraw.11}{XXXX}
+#'   \item{iraw.12}{XXXX}
+#'   \item{iraw.13}{XXXX}
+#'   \item{iraw.14}{XXXX}
+#'   \item{iraw.15}{XXXX}
+#'   \item{iraw.16}{XXXX}
+#'   \item{iraw.17}{XXXX}
+#'   \item{iraw.18}{XXXX}
+#'   \item{iraw.19}{XXXX}
+#'   \item{iraw.20}{XXXX}
+#'   \item{idur.1}{XXXX}
+#'   \item{idur.2}{XXXX}
+#'   \item{idur.3}{XXXX}
+#'   \item{idur.4}{XXXX}
+#'   \item{idur.5}{XXXX}
+#'   \item{idur.6}{XXXX}
+#'   \item{idur.7}{XXXX}
+#'   \item{idur.8}{XXXX}
+#'   \item{idur.9}{XXXX}
+#'   \item{idur.10}{XXXX}
+#'   \item{idur.11}{XXXX}
+#'   \item{idur.12}{XXXX}
+#'   \item{idur.13}{XXXX}
+#'   \item{idur.14}{XXXX}
+#'   \item{idur.15}{XXXX}
+#'   \item{idur.16}{XXXX}
+#'   \item{idur.17}{XXXX}
+#'   \item{idur.18}{XXXX}
+#'   \item{idur.19}{XXXX}
+#'   \item{idur.20}{XXXX}
+#' }
+"example_dataset"
