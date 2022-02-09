@@ -1,0 +1,32 @@
+gibbs<-function (n, mu1, s1, mu2, s2, rho) 
+{
+  mat <- matrix(ncol = 2, nrow = n)
+  x <- 0
+  y <- 0
+  mat[1, ] <- c(x, y)
+  for (i in 2:n) {
+    x <- rnorm(1, mu1 + 
+                 (s1/s2) * rho * (y - mu2), sqrt((1 - rho^2)*s1^2))
+    y <- rnorm(1, mu2 + 
+                 (s2/s1) * rho * (x - mu1), sqrt((1 - rho^2)*s2^2))
+    mat[i, ] <- c(x, y)
+  }
+  mat
+}
+
+N <- 200 # Number of random samples
+set.seed(123)
+# Target parameters for univariate normal distributions
+rho <- -0.6
+mu1 <- 1; s1 <- 2
+mu2 <- 1; s2 <- 8
+
+bvn <- gibbs(N,mu1,s1,mu2,s2,rho)
+colnames(bvn) <- c("bvn_X1","bvn_X2")
+
+points(bvn,col=4)
+library (mvtnorm)
+
+plot(bvn,xlab="X1",ylab="X2", col=1)
+
+
