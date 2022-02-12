@@ -4,6 +4,7 @@
 # 3. make the cheating cases output as a matrix for both LZT and KLD
 # 4. make seperate arguments/extract.function for calling different plots (make vars definable? in plot())
 # 5. make plots a seperate function from secmin, which is mainly for estimate results
+# 6. omit NCI results and plots
 
 #' secmin
 #'
@@ -144,9 +145,9 @@ Lzstar.plot <- plot(Lzstar.psf.A, cutoff.obj=Lzstar.cut.A,Type="Both",Blv1=0.05,
 
 
 ###### NCI index
-NCI.psf.A <- NCI(Resp)
-NCI.cut.A <- cutoff(NCI.psf.A ,Blvl=.05,Nrep=1000)
-NCI.plot <- plot(NCI.psf.A, Type="Both",Blv1=0.05,CIlv1=0.9,Xcex=0.8,col.hist="grey",col.area="NA",col.ticks="NA",title="")
+#NCI.psf.A <- NCI(Resp)
+#NCI.cut.A <- cutoff(NCI.psf.A ,Blvl=.05,Nrep=1000)
+#NCI.plot <- plot(NCI.psf.A, Type="Both",Blv1=0.05,CIlv1=0.9,Xcex=0.8,col.hist="grey",col.area="NA",col.ticks="NA",title="")
 
 
 ##################### RT based PFS calculation       ##########################
