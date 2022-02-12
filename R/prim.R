@@ -17,6 +17,13 @@
 
 
 prim = function(RT,Resp) {
+  num.RT = RT
+  num.RT[is.na(num.RT)]=1
+  logRTs <- log(num.RT)
+  alpha_hat <- 1/apply(logRTs,2,sd)
+  beta_hat <- apply(logRTs,2,mean)
+  speed_hat <- mean(beta_hat) - apply(logRTs,1,mean)
+
 
   model <- "
   Poisson model...

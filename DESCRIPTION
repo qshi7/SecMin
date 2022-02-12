@@ -11,4 +11,4 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Imports: purrr,ggplot2,tidyr,runjags,coda,PerFit,ltm
 Depends: 
-    R (>= 2.10)
+    R (>= 2.10),runjags
