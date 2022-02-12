@@ -5,6 +5,7 @@
 # 4. make seperate arguments/extract.function for calling different plots (make vars definable? in plot())
 # 5. make plots a seperate function from secmin, which is mainly for estimate results
 # 6. omit NCI results and plots
+# 7. prepare RT and Resp data
 
 #' secmin
 #'

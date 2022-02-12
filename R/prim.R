@@ -89,8 +89,8 @@ for(i in 1:I){
   }
 }
 Z_sum.A <- apply(Z.A,1,sum)
-#hist(Z_sum.A,col="grey",main = "",xlab="Lz",breaks=20) ## add plot
-#abline(v=qchisq(0.95,20)) # 170 should be the number of items
+hist(Z_sum.A,col="grey",main = "",xlab="Lz",breaks=20) ## add plot
+abline(v=qchisq(0.95,20)) # 170 should be the number of items
 
 
 # KL index programming
@@ -118,13 +118,13 @@ time.taken <- end.time - start.time
 time.taken
 Critical <-quantile(KLD,probs=c(0.5))+1.5*(quantile(KLD,probs=c(0.75))-quantile(KLD,probs=c(0.5)))
 Critical
-#KLD.plot = c(hist(KLD),abline(v=Critical)) # function output
+KLD.plot = c(hist(KLD),abline(v=Critical)) # function output
 
 LZT.cheating.cases <- which(Z_sum.A>Critical)
 KLD.cheating.cases <- which(KLD>Critical) # function output
 
 
 
-return(list(summary = summary.table, LZT.cheating.cases,KLD.cheating.cases))
+return(summary =(list(unlist(out),summary.table, LZT.cheating.cases,KLD.cheating.cases)))
 
 }

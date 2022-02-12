@@ -5,7 +5,7 @@
 \alias{example_dataset}
 \title{Example dataset}
 \format{
-A data frame with 1636 rows and 610 variables:
+A data frame with 1636 rows and 69 variables:
 \describe{
 \item{EID}{ID of participants}
 \item{Flagged}{Whether the participants were flagged as a cheater. 0=not flagged, 1=flagged}

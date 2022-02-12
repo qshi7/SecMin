@@ -2,7 +2,7 @@
 #'
 #' A dataset containing response time of 1636 test-takers
 #'
-#' @format A data frame with 1636 rows and 610 variables:
+#' @format A data frame with 1636 rows and 69 variables:
 #' \describe{
 #'   \item{EID}{ID of participants}
 #'   \item{Flagged}{Whether the participants were flagged as a cheater. 0=not flagged, 1=flagged}
