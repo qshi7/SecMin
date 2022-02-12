@@ -16,7 +16,7 @@
 #' @export
 
 
-secmin = function(RT,Resp) {
+prim = function(RT,Resp) {
 
   model <- "
   Poisson model...
