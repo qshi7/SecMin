@@ -17,12 +17,6 @@
 
 
 prim = function(RT,Resp) {
-  num.RT = RT
-  num.RT[is.na(num.RT)]=1
-  logRTs <- log(num.RT)
-  alpha_hat <- 1/apply(logRTs,2,sd)
-  beta_hat <- apply(logRTs,2,mean)
-  speed_hat <- mean(beta_hat) - apply(logRTs,1,mean)
 
 
   model <- "
@@ -135,3 +129,4 @@ KLD.cheating.cases <- which(KLD>Critical) # function output
 return(summary =(list(unlist(out),summary.table, LZT.cheating.cases,KLD.cheating.cases)))
 
 }
+
