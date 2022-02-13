@@ -69,7 +69,12 @@ out <- run.jags(model, n.chains = 2, burnin = 1000,
 )
 
 out.summary <- extract.runjags(add.summary(out),what = 'summary')
-summary.table <- out.summary[c(1:40,47:146),c(1,3:5,9,11)]
+n.item <- ncol(RT)
+n.person <- nrow(RT)
+alpha.table <- out.summary[c(1:n.item),c(1,3:5,9,11)]
+beta.table <- out.summary[c((n.item+1):(2*n.item)),c(1,3:5,9,11)]
+speed.table <- out.summary[c((nrow(out.summary)-n.person):(nrow(out.summary)-1)),c(1,3:5,9,11)]
+
 #plots = plot(out, vars='alpha[1]',plot.type = c('trace','histogram','autocorr','ecdf')) #make vars definable for users
 
 
@@ -77,9 +82,9 @@ summary.table <- out.summary[c(1:40,47:146),c(1,3:5,9,11)]
 
 ##################### RT based PFS calculation       ##########################
 #### Lt index Marianti & Fox
-rt.alpha.A <- as.vector(summary.table[c(1:20,3)]) # need to modify according to data
-rt.beta.A <- as.vector(summary.table[c(21:40,3)]) # need to modify according to data
-rt.tau.A <- as.matrix(summary.table[c(41:140),3]) # need to modify according to data
+rt.alpha.A <- as.vector(alpha.table[,3])
+rt.beta.A <- as.vector(beta.table[,3])
+rt.tau.A <- as.matrix(speed.table[,3])
 Form.A.RT <- as.matrix(RT)
 I <- ncol(Form.A.RT)
 J <- nrow(Form.A.RT)
@@ -126,7 +131,11 @@ KLD.cheating.cases <- which(KLD>Critical) # function output
 
 
 
-return(summary =(list(unlist(out),summary.table, LZT.cheating.cases,KLD.cheating.cases)))
+return("Summary" <- (list( "Alpha Estimates" = alpha.table,
+                      "Beta Estitames"= beta.table,
+                      "Speed Estimates" = speed.table,
+                      "Cheating cases based on LZT index"= LZT.cheating.cases,
+                      "Cheating cases based on KLD index" =KLD.cheating.cases)))
 
 }
 
