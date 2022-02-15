@@ -129,13 +129,13 @@ KLD.plot = c(hist(KLD),abline(v=Critical)) # function output
 LZT.cheating.cases <- which(Z_sum.A>Critical)
 KLD.cheating.cases <- which(KLD>Critical) # function output
 
+Estimates <<- (list( "Alpha Estimates" = alpha.table,
+                     "Beta Estitames"= beta.table,
+                     "Speed Estimates" = speed.table,
+                     "Cheating cases based on LZT index"= LZT.cheating.cases,
+                     "Cheating cases based on KLD index" =KLD.cheating.cases))
 
-
-return("Summary" <- (list( "Alpha Estimates" = alpha.table,
-                      "Beta Estitames"= beta.table,
-                      "Speed Estimates" = speed.table,
-                      "Cheating cases based on LZT index"= LZT.cheating.cases,
-                      "Cheating cases based on KLD index" =KLD.cheating.cases)))
+return(Estimates)
 
 }
 
