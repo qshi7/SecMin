@@ -75,9 +75,7 @@ alpha.table <- out.summary[c(1:n.item),c(1,3:5,9,11)]
 beta.table <- out.summary[c((n.item+1):(2*n.item)),c(1,3:5,9,11)]
 speed.table <- out.summary[c((nrow(out.summary)-n.person):(nrow(out.summary)-1)),c(1,3:5,9,11)]
 
-#plots = plot(out, vars='alpha[1]',plot.type = c('trace','histogram','autocorr','ecdf')) #make vars definable for users
-
-
+plots = plot(out, vars='alpha[5]',plot.type = c('trace','histogram','autocorr','ecdf')) #make vars definable for users
 
 
 ##################### RT based PFS calculation       ##########################
@@ -97,7 +95,7 @@ for(i in 1:I){
 Z_sum.A <- apply(Z.A,1,sum)
 hist(Z_sum.A,col="grey",main = "",xlab="Lz",breaks=20) ## add plot
 abline(v=qchisq(0.95,20)) # 170 should be the number of items
-
+critical_value2 <- qchisq(0.95,20)
 
 # KL index programming
 
@@ -126,7 +124,7 @@ Critical <-quantile(KLD,probs=c(0.5))+1.5*(quantile(KLD,probs=c(0.75))-quantile(
 Critical
 KLD.plot = c(hist(KLD),abline(v=Critical)) # function output
 
-LZT.cheating.cases <- which(Z_sum.A>Critical)
+LZT.cheating.cases <- which(Z_sum.A>critical_value2)
 KLD.cheating.cases <- which(KLD>Critical) # function output
 
 Estimates <<- (list( "Alpha Estimates" = alpha.table,
