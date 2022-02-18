@@ -64,7 +64,7 @@ list( speed=speed_hat, prec.speed=prec.speed,ipar=cbind(alpha_hat,beta_hat), mu.
 }
 
 "
-out <- run.jags(model, n.chains = 2, burnin = 1000,
+out <<- run.jags(model, n.chains = 2, burnin = 1000,
                 sample = 8000, adapt = 2000, monitor=c("alpha","beta","mu.ipar","var.ipar","speed","sd.speed"),
 )
 
