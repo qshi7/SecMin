@@ -13,10 +13,18 @@
 #' @import ltm
 #'
 #' @return a list
+#' \itemize{
+#'   \item out = the results of the lognormal model
+#'   \item alpha.table = estimates of alpha values
+#'   \item beta.table = estimates of beta values
+#'   \item speed.table = estimates of person speed
+#'   \item LZT.cheating.cases = predicted cheating cases based on LZT index
+#'   \item KLD.cheating.cases = predicted cheating cases based on KLD index
+#' }
 #' @export
 
 
-prim = function(RT,Resp) {
+prim <- function(RT,Resp) {
 
 
   model <- "
@@ -130,8 +138,8 @@ KLD.cheating.cases <- which(KLD>Critical) # function output
 Estimates <<- (list( "Alpha Estimates" = alpha.table,
                      "Beta Estitames"= beta.table,
                      "Speed Estimates" = speed.table,
-                     "Cheating cases based on LZT index"= LZT.cheating.cases,
-                     "Cheating cases based on KLD index" =KLD.cheating.cases))
+                     "Cheating cases based on LZT index" = LZT.cheating.cases,
+                     "Cheating cases based on KLD index" = KLD.cheating.cases))
 
 return(Estimates)
 

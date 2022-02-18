@@ -12,3 +12,11 @@ RoxygenNote: 7.1.1
 Imports: purrr,ggplot2,tidyr,runjags,coda,PerFit,ltm
 Depends: 
     R (>= 2.10),runjags
+Collate: 
+    'RT.R'
+    'Resp.R'
+    'example_dataset.R'
+    'histall.R'
+    'prepare.R'
+    'prim.R'
+    'secmin.R'

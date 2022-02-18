@@ -13,6 +13,14 @@ prim(RT, Resp)
 }
 \value{
 a list
+\itemize{
+\item out = the results of the lognormal model
+\item alpha.table = estimates of alpha values
+\item beta.table = estimates of beta values
+\item speed.table = estimates of person speed
+\item LZT.cheating.cases = predicted cheating cases based on LZT index
+\item KLD.cheating.cases = predicted cheating cases based on KLD index
+}
 }
 \description{
 prim fit the lognormal model and return parameter estimates
