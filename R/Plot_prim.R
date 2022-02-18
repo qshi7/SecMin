@@ -15,5 +15,5 @@
 #' @return plot
 #' @export
 
-plots = plot(out, vars='alpha[3]',plot.type = c('trace','histogram','autocorr','ecdf'))
+plots = plot(out, vars='alpha[ID]',plot.type = c('trace','histogram','autocorr','ecdf'))
 
