@@ -1,22 +1,31 @@
 Package: SecMin
-Title: What the Package Does (One Line, Title Case)
+Title: Data Mining Methods for Detecting Test Fraud
 Version: 0.0.0.9000
 Authors@R: 
-    person("first","last",role = c("aut", "cre"),email = "first.last@example.com")
-Description: What the package does (one paragraph).
+    c(person("Qingzhou","Shi",role = c("aut"),email = "qshi7@ua.edu"),
+    person("Kaiwem","Man",role = c("aut", "cre"),email = "kman@ua.edu"),
+    person("Mehdi","Rajeb", role = "ctb", email = "mrajeb@crimson.ua.edu"),
+    person("Cheng","Hua", role = "ctb", email = "chua@ua.edu")
+    )
+Description: Functions to fit data to van de Linden's (2006) https://doi.org/10.3102%2F10769986031002181 log-normal RT model as well as apply selected unsupervised (Kmeans & finite mixture modeling) and supervised (K-nearest neighbor & random forest) machine learning algorithms. Various IRT-, response-, and RT-based person fit estimates from the log-normal RT model are served as criteria to detect test frauds. Confusion matrices and serveral classification performance metrics of the machine learning algorithms are also provided.
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
-Imports: purrr,ggplot2,tidyr,runjags,coda,PerFit,ltm
+RoxygenNote: 7.1.2
+Imports: purrr,ggplot2,tidyr,coda,PerFit,ltm,stats,graphics,mirt,caret,mclust,mlbench,class,plyr,randomForest,gmodels,dplyr
 Depends: 
     R (>= 2.10),runjags
 Collate: 
     'RT.R'
     'Resp.R'
     'example_dataset.R'
-    'histall.R'
-    'prepare.R'
+    'dv.R'
+    'prepini.R'
     'prim.R'
-    'secmin.R'
+    'Flagged.R'
+    'Info.R'
+    'prepftr.R'
+    'unsprvs.R'
+    'sprvs.R'
+    'plot.SecMin.R'

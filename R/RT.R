@@ -1,28 +1,31 @@
 #' RT dataset
 #'
-#' A dataset containing response time of 1636 test-takers and 20 items
+#' The Response Time (RT) dataset contains item wise response time for 20 items of 100 candidates. 
+#' In this dataset, each variable or column represents an item, and each row represents a candidate. 
+#' The value in each cell represents time, in seconds taken to answer the item by the corresponding candidate.
+#'    
 #'
-#' @format A matrix with 1636 rows and 20 variables:
+#' @format A matrix with 100 rows and 20 variables:
 #' \describe{
-#'   \item{idur.1}{XXXX}
-#'   \item{idur.2}{XXXX}
-#'   \item{idur.3}{XXXX}
-#'   \item{idur.4}{XXXX}
-#'   \item{idur.5}{XXXX}
-#'   \item{idur.6}{XXXX}
-#'   \item{idur.7}{XXXX}
-#'   \item{idur.8}{XXXX}
-#'   \item{idur.9}{XXXX}
-#'   \item{idur.10}{XXXX}
-#'   \item{idur.11}{XXXX}
-#'   \item{idur.12}{XXXX}
-#'   \item{idur.13}{XXXX}
-#'   \item{idur.14}{XXXX}
-#'   \item{idur.15}{XXXX}
-#'   \item{idur.16}{XXXX}
-#'   \item{idur.17}{XXXX}
-#'   \item{idur.18}{XXXX}
-#'   \item{idur.19}{XXXX}
-#'   \item{idur.20}{XXXX}
+#'   \item{idur.1}{Response time (in seconds) for scored items}
+#'   \item{idur.2}{Response time (in seconds) for scored items}
+#'   \item{idur.3}{Response time (in seconds) for scored items}
+#'   \item{idur.4}{Response time (in seconds) for scored items}
+#'   \item{idur.5}{Response time (in seconds) for scored items}
+#'   \item{idur.6}{Response time (in seconds) for scored items}
+#'   \item{idur.7}{Response time (in seconds) for scored items}
+#'   \item{idur.8}{Response time (in seconds) for scored items}
+#'   \item{idur.9}{Response time (in seconds) for scored items}
+#'   \item{idur.10}{Response time (in seconds) for scored items}
+#'   \item{idur.11}{Response time (in seconds) for scored items}
+#'   \item{idur.12}{Response time (in seconds) for scored items}
+#'   \item{idur.13}{Response time (in seconds) for scored items}
+#'   \item{idur.14}{Response time (in seconds) for scored items}
+#'   \item{idur.15}{Response time (in seconds) for scored items}
+#'   \item{idur.16}{Response time (in seconds) for scored items}
+#'   \item{idur.17}{Response time (in seconds) for scored items}
+#'   \item{idur.18}{Response time (in seconds) for scored items}
+#'   \item{idur.19}{Response time (in seconds) for scored items}
+#'   \item{idur.20}{Response time (in seconds) for scored items}
 #' }
 "RT"

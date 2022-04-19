@@ -1,30 +1,35 @@
 #' prim
 #'
-#' prim fit the lognormal model and return parameter estimates
+#' prim fits the log-normal RT model and return parameter estimates as well as other
+#' results of the model.
 #'
-#' @param RT data frame containing RT information
-#' @param Resp data frame containing item response
+#' @param ini an object of class \code{ini} containing the initial values for the log-normal RT model
 #'
 #' @import runjags
 #' @import coda
 #' @importFrom graphics par abline hist
-#' @import PerFit
+#' @importFrom PerFit Ht cutoff lzstar NCI
 #' @importFrom stats qchisq quantile
 #' @import ltm
 #'
-#' @return a list
-#' \itemize{
-#'   \item out = the results of the lognormal model
-#'   \item alpha.table = estimates of alpha values
-#'   \item beta.table = estimates of beta values
-#'   \item speed.table = estimates of person speed
-#'   \item LZT.cheating.cases = predicted cheating cases based on LZT index
-#'   \item KLD.cheating.cases = predicted cheating cases based on KLD index
-#' }
+#'
+#' @return an object of class \code{SecMin}. The method for \code{SecMin} objects
+#'  is \code{\link{prepftr}} for preparing the features to fit unsupervised or
+#'  supervised machine learning models.
+#'   \item{alpha}{estimates of alpha values}
+#'   \item{beta}{estimates of beta values}
+#'   \item{speed}{estimates of person speed values}
+#'   \item{LZ.cheating.cases}{predicted cheating cases based on LZ index}
+#'   \item{KLD.cheating.cases}{predicted cheating cases based on KLD index}
+#'   \item{KLD.value}{person fit estimates depend on RT-based KLD measure}
+#'   \item{LZ.value}{person fit estimates depend on RT-based LZ index}
+#'   \item{Ht.value}{person fit estimates depend on response-based Ht index}
+#'   \item{Lzstar.value}{person fit estimates depend on IRT-based Lzstar index}
+#'   \item{NCI.value}{person fit estimates depend on response-based NCI index}
+#'   \item{general}{results of the lognormal model}
 #' @export
 
-
-prim <- function(RT,Resp) {
+prim <- function(ini) {
 
 
   model <- "
@@ -33,16 +38,16 @@ prim <- function(RT,Resp) {
 model {
 	for (i in 1:N) {
 		for (j in 1:m) {
-			RT[i,j] ~ dlnorm(beta[j] - speed[i], alpha[j]^2)
+			RT[i,j] ~ dlnorm(be[j] - sp[i], al[j]^2)
 		}
-		speed[i] ~ dnorm(0, prec.speed)
+		sp[i] ~ dnorm(0, prec.sp)
 	}
-		prec.speed ~ dgamma(.001,.001)
-		sd.speed <- sqrt(1/prec.speed)
+		prec.sp ~ dgamma(.001,.001)
+		sd.sp <- sqrt(1/prec.sp)
 
 	for (j in 1:m) {
-		alpha[j] <- ipar[j,1]
-		beta[j] <- ipar[j,2]
+		al[j] <- ipar[j,1]
+		be[j] <- ipar[j,2]
 		ipar[j,1:2] ~ dmnorm(mu.ipar[1:2], prec.ipar[1:2,1:2])
 	}
 
@@ -58,23 +63,26 @@ model {
 }
 
 Data{
-list(RT = structure(.Data = RT,
-.Dim = c(nrow(RT), ncol(RT))),N = nrow(RT), m = ncol(RT))
+list(RT = structure(.Data = ini[[1]],
+.Dim = c(nrow(ini[[1]]), ncol(ini[[1]]))),N = nrow(ini[[1]]), m = ncol(ini[[1]]))
 }
 
 Inits{
-list( speed=speed_hat, prec.speed=prec.speed,ipar=cbind(alpha_hat,beta_hat), mu.ipar=mu.ipar, prec.ipar=prec.ipar)
+list( sp=ini[[5]], prec.sp=ini[[6]],ipar=cbind(ini[[3]], ini[[4]]), mu.ipar=ini[[7]], prec.ipar=ini[[8]])
 }
 
 Inits{
-list( speed=speed_hat, prec.speed=prec.speed,ipar=cbind(alpha_hat,beta_hat), mu.ipar=mu.ipar, prec.ipar=prec.ipar)
+list( sp=ini[[5]], prec.sp=ini[[6]],ipar=cbind(ini[[3]], ini[[4]]), mu.ipar=ini[[7]], prec.ipar=ini[[8]])
 
 }
 
 "
-out <<- run.jags(model, n.chains = 2, burnin = 1000,
-                sample = 8000, adapt = 2000, monitor=c("alpha","beta","mu.ipar","var.ipar","speed","sd.speed"),
+out <- run.jags(model, n.chains = 2, burnin = 1000,
+                sample = 8000, adapt = 2000, monitor=c("al","be","mu.ipar","var.ipar","sp","sd.sp"),
 )
+
+RT <- ini[[1]]
+Resp <- ini[[2]]
 
 out.summary <- extract.runjags(add.summary(out),what = 'summary')
 n.item <- ncol(RT)
@@ -83,10 +91,28 @@ alpha.table <- out.summary[c(1:n.item),c(1,3:5,9,11)]
 beta.table <- out.summary[c((n.item+1):(2*n.item)),c(1,3:5,9,11)]
 speed.table <- out.summary[c((nrow(out.summary)-n.person):(nrow(out.summary)-1)),c(1,3:5,9,11)]
 
-plots = plot(out, vars='alpha[5]',plot.type = c('trace','histogram','autocorr','ecdf')) #make vars definable for users
+
+##################### RT based PFS calculation ##########################
+
+###### HT index
+Ht.psf.A <- PerFit::Ht(Resp)
+par(mfrow = c(1,1))
+plot(Ht.psf.A)
+Ht.cut.A <- PerFit::cutoff(Ht.psf.A,Blvl=.05,Nrep=1000)
 
 
-##################### RT based PFS calculation       ##########################
+###### Lzstar  index
+Lzstar.psf.A <- PerFit::lzstar(Resp, IRT.PModel = "1PL")
+Lzstar.cut.A <- PerFit::cutoff(Lzstar.psf.A,Blvl=.05,Nrep=1000)
+plot(Lzstar.psf.A, cutoff.obj=Lzstar.cut.A,Type="Both",Blv1=0.05,CIlv1=0.9,Xcex=0.8,col.hist="grey",col.area="NA",title="",col.ticks="NA")
+
+
+###### NCI index
+NCI.psf.A <- PerFit::NCI(Resp)
+NCI.cut.A <- PerFit::cutoff(NCI.psf.A ,Blvl=.05,Nrep=1000)
+plot(NCI.psf.A, Type="Both",Blv1=0.05,CIlv1=0.9,Xcex=0.8,col.hist="grey",col.area="NA",col.ticks="NA",title="")
+
+
 #### Lt index Marianti & Fox
 rt.alpha.A <- as.vector(alpha.table[,3])
 rt.beta.A <- as.vector(beta.table[,3])
@@ -101,9 +127,9 @@ for(i in 1:I){
   }
 }
 Z_sum.A <- apply(Z.A,1,sum)
-hist(Z_sum.A,col="grey",main = "",xlab="Lz",breaks=20) ## add plot
-abline(v=qchisq(0.95,20)) # 170 should be the number of items
-critical_value2 <- qchisq(0.95,20)
+hist(Z_sum.A,col="grey",main = "Distribution of Person Estimates Based on LZ Index",xlab="Lz",breaks=20)
+abline(v=qchisq(0.95,ncol(ini[["Resp"]])))
+critical_value2 <- qchisq(0.95,ncol(ini[["Resp"]]))
 
 # KL index programming
 
@@ -121,27 +147,43 @@ KLdata <- diag(1/w1) %*% Cheating
 
 summary(KLdata)
 start.time <- Sys.time()
-KLD=rep(0,J)
+KLD <- rep(0,J)
 for (i in 1:J){
   KLD[i]= sum(w_average_cheat %*% log(w_average_cheat/KLdata[i,]));
 }
 end.time <- Sys.time()
 time.taken <- end.time - start.time
-time.taken
 Critical <-quantile(KLD,probs=c(0.5))+1.5*(quantile(KLD,probs=c(0.75))-quantile(KLD,probs=c(0.5)))
 Critical
-KLD.plot = c(hist(KLD),abline(v=Critical)) # function output
+KLD.plot = c(hist(KLD, main = "Distribution of Person Estimates Based on KLD Index"),abline(v=Critical))
 
-LZT.cheating.cases <- which(Z_sum.A>critical_value2)
-KLD.cheating.cases <- which(KLD>Critical) # function output
+LZ.cheating.cases <- which(Z_sum.A>critical_value2)
+KLD.cheating.cases <- which(KLD>Critical)
 
-Estimates <<- (list( "Alpha Estimates" = alpha.table,
-                     "Beta Estitames"= beta.table,
-                     "Speed Estimates" = speed.table,
-                     "Cheating cases based on LZT index" = LZT.cheating.cases,
-                     "Cheating cases based on KLD index" = KLD.cheating.cases))
 
-return(Estimates)
+Estimates <- list(alpha.table,
+                  beta.table,
+                  speed.table,
+                  LZ.cheating.cases,
+                  KLD.cheating.cases,
+                  KLD.value = KLD,
+                  Z.score = Z_sum.A,
+                  Ht.psf = Ht.psf.A,
+                  Lzstar.psf = Lzstar.psf.A,
+                  NCI.psf = NCI.psf.A,
+                  general = out)
+
+names(Estimates) <- c("alpha", "beta", "speed",
+                      "LZ.cheating.cases",
+                      "KLD.cheating.cases",
+                      "KLD.value", "LZ.value", "Ht.value",
+                      "Lzstar.value", "NCI.value", "general")
+
+class(Estimates) <- "SecMin"
+
+
+invisible(Estimates)
+
 
 }
 
