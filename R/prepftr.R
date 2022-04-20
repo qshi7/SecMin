@@ -37,19 +37,17 @@ prepftr <- function(SecMin.obj, RT, Resp, Flgd, Info = NULL) {
   ############################# IRT model fitting  #############################
 
   fit.A <- mirt(Resp,1,itemtype='Rasch')
-  #fit.A
   fit.item.A <- coef(fit.A, IRTpars=T,as.data.frame=T)
   theta.A <- as.vector(fscores(fit.A))
-  #hist(theta.A)
 
 
   ########################## Unsupervised learning part ##########################
   # Data preparation
 
   tau.A <- as.data.frame(SecMin.obj[[3]])$Mean
-  response.A <- Resp #item response
-  Z_sum.A <- SecMin.obj[[7]]  #ltz
-  KLD.A <- SecMin.obj[[6]] #KLD index value
+  response.A <- Resp
+  Z_sum.A <- SecMin.obj[[7]]
+  KLD.A <- SecMin.obj[[6]]
 
 
   Ht.psf.A <- SecMin.obj[[8]]
